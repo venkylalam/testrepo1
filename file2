@@ -1,0 +1,3 @@
+select * from test.users
+select count(*) from test.users
+

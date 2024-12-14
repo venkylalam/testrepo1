@@ -1,0 +1,21 @@
+Redshift Queries
+~~~~~~~~~~~~~~~~
+
+psql -h easyoradba.c2nh0wlf4z7g.ap-southeast-2.redshift.amazonaws.com -p 5439 -U awsuser dev
+postgres-> \l
+postgres-> \c myproddb
+
+
+--http://raghavt.blogspot.com.au/2011/11/deadlocks-in-postgresql.html
+SELECT = AcessShareLock : It acquired automatically by a SELECT statement on the table or tables it retrieves from. This mode blocks ALTER TABLE, DROP TABLE, and  VACUUM (AccessExclusiveLock) on the same table
+INSERT = ShareRowExclusiveLock: This lock mode nearly identical to the ExclusiveLock, but which allows concurrent RowShareLock to be acquired.
+COPY = ShareRowExclusiveLock: This lock mode nearly identical to the ExclusiveLock, but which allows concurrent RowShareLock to be acquired.
+Both will be locking each other
+
+-- Running queries
+select pid, user_name, starttime, query
+from stv_recents
+where status='Running';
+
+-- Join the superuser query_group 
+set query_group to 'superuser'
